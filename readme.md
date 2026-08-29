@@ -1,4 +1,3 @@
 irish is in 
-awiuofha
-<`/$0h@n:D17`>;
-shdygdwuji
+gibersish text
+JAANA SAMJHO NAA HAM DARTE HEN !!!
