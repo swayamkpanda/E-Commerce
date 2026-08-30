@@ -311,13 +311,13 @@ $pageTitle = "Shop | SSISS";
         </select>
 
 
-        <button class="filter-button">
+        <a href="filters.php" class="filter-button">
 
             <i class="fa-solid fa-sliders"></i>
 
             FILTERS
 
-        </button>
+</a>
 
 
     </div>
