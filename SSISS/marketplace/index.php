@@ -20,7 +20,7 @@ $products = [
         "originalPrice" => 2499,
         "seller" => "Rahul Sharma",
         "location" => "Bhubaneswar",
-        "image" => "../assets/images/products/denim-jacket.jpg",
+        "image" => "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?auto=format&fit=crop&w=900&q=80",
         "status" => "Available"
     ],
 
@@ -34,7 +34,7 @@ $products = [
         "originalPrice" => 1999,
         "seller" => "Priya Das",
         "location" => "Cuttack",
-        "image" => "../assets/images/products/floral-dress.jpg",
+        "image" => "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=900&q=80",
         "status" => "Available"
     ],
 
@@ -48,7 +48,7 @@ $products = [
         "originalPrice" => 3499,
         "seller" => "Aman Kumar",
         "location" => "Bhubaneswar",
-        "image" => "../assets/images/products/leather-jacket.jpg",
+        "image" => "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=900&q=80",
         "status" => "Available"
     ],
 
@@ -62,7 +62,7 @@ $products = [
         "originalPrice" => 1299,
         "seller" => "Rohan Singh",
         "location" => "Puri",
-        "image" => "../assets/images/products/casual-shirt.jpg",
+        "image" => "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=900&q=80",
         "status" => "Available"
     ],
 
@@ -76,7 +76,7 @@ $products = [
         "originalPrice" => 2299,
         "seller" => "Sneha Patel",
         "location" => "Bhubaneswar",
-        "image" => "../assets/images/products/handbag.jpg",
+        "image" => "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=80",
         "status" => "Available"
     ],
 
@@ -90,7 +90,7 @@ $products = [
         "originalPrice" => 999,
         "seller" => "Ananya Singh",
         "location" => "Cuttack",
-        "image" => "../assets/images/products/kids-hoodie.jpg",
+        "image" => "https://images.unsplash.com/photo-1519238360530-93c2b77b5d97?auto=format&fit=crop&w=900&q=80",
         "status" => "Available"
     ]
 
