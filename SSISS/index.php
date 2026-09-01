@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "SSISS | Wear Your Vibe";
+$pageTitle = "YFF | TRYANGLE";
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +46,7 @@ $pageTitle = "SSISS | Wear Your Vibe";
     <header class="navbar">
 
         <a href="index.php" class="logo">
-            SSI<span>SS</span>
+            YFF<span></span>
         </a>
 
 
@@ -56,6 +56,8 @@ $pageTitle = "SSISS | Wear Your Vibe";
 
             <a href="shop/index.php">Shop</a>
 
+        
+
             <a href="ai/index.php">
                 AI Stylist
                 <span class="sparkle">✦</span>
@@ -63,10 +65,13 @@ $pageTitle = "SSISS | Wear Your Vibe";
 
             <a href="ai/vibe.php">Vibes</a>
 
-            <a href="marketplace/index.php">Pre-Loved</a>
+           <a href="marketplace/index.php">Pre-Loved</a>
 
             <a href="impact/index.php">Impact</a>
 
+            <a href="admin/index.php" class="admin-link">
+            Admin
+            </a>
         </nav>
 
 
@@ -241,7 +246,7 @@ $pageTitle = "SSISS | Wear Your Vibe";
 
 
                 <img
-                    src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1000&q=85"
+                    src="./assets/images/banners/pramod.png"
                     alt="SSISS Fashion">
 
 
@@ -332,7 +337,7 @@ $pageTitle = "SSISS | Wear Your Vibe";
                     class="vibe-card">
 
                     <img
-                        src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=600&q=80"
+                        src="./assets/images/banners/sohan.png"
                         alt="Streetwear">
 
                     <div class="vibe-overlay">
@@ -351,7 +356,7 @@ $pageTitle = "SSISS | Wear Your Vibe";
                     class="vibe-card">
 
                     <img
-                        src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80"
+                        src="./assets/images/banners/IRISH.png"
                         alt="Old Money">
 
                     <div class="vibe-overlay">
@@ -370,7 +375,7 @@ $pageTitle = "SSISS | Wear Your Vibe";
                     class="vibe-card">
 
                     <img
-                        src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=600&q=80"
+                        src="./assets/images/banners/swayam.png"
                         alt="Y2K">
 
                     <div class="vibe-overlay">

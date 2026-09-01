@@ -1,1 +1,1479 @@
-// TODO: Implement this SSISS asset.
+/* =========================================================
+   YFF - ADMIN DASHBOARD
+   dashboard.css
+   ========================================================= */
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f3ee;
+    color: #151515;
+    min-height: 100vh;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+
+/* =========================================================
+   ADMIN LAYOUT
+   ========================================================= */
+
+.admin-layout {
+    min-height: 100vh;
+    display: flex;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.sidebar {
+    width: 245px;
+    min-height: 100vh;
+
+    background: #151515;
+    color: white;
+
+    padding: 28px 18px;
+
+    position: fixed;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    z-index: 100;
+
+    transition: transform 0.3s ease;
+}
+
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.admin-logo {
+    padding: 8px 14px 35px;
+}
+
+.admin-logo h1 {
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: 5px;
+}
+
+.admin-logo p {
+    margin-top: 4px;
+
+    color: #888;
+
+    font-size: 8px;
+    letter-spacing: 2px;
+}
+
+.admin-badge {
+    display: inline-block;
+
+    margin-top: 18px;
+
+    padding: 6px 9px;
+
+    border: 1px solid #454545;
+
+    color: #b9dc84;
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.admin-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.admin-nav a,
+.admin-nav button {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 14px 15px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #999;
+
+    text-decoration: none;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    border-radius: 4px;
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+
+    transition: all 0.25s ease;
+}
+
+.admin-nav a:hover,
+.admin-nav button:hover {
+    background: #252525;
+    color: white;
+}
+
+.admin-nav a.active,
+.admin-nav button.active {
+    background: #d9edbd;
+    color: #151515;
+    font-weight: 700;
+}
+
+.nav-icon {
+    width: 22px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   SIDEBAR BOTTOM
+   ========================================================= */
+
+.sidebar-bottom {
+    position: absolute;
+
+    left: 18px;
+    right: 18px;
+    bottom: 25px;
+}
+
+.back-store {
+    display: block;
+
+    padding: 12px;
+
+    border: 1px solid #3d3d3d;
+
+    color: #aaa;
+
+    text-decoration: none;
+
+    text-align: center;
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+
+    transition: all 0.25s ease;
+}
+
+.back-store:hover {
+    color: white;
+    border-color: white;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.admin-main {
+    width: calc(100% - 245px);
+
+    margin-left: 245px;
+
+    min-height: 100vh;
+
+    padding: 30px 40px 60px;
+}
+
+
+/* =========================================================
+   TOP BAR
+   ========================================================= */
+
+.admin-topbar {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 35px;
+}
+
+.page-heading small {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #888;
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+}
+
+.page-heading h1 {
+    font-size: 35px;
+
+    letter-spacing: -1.5px;
+}
+
+.mobile-menu {
+    display: none;
+
+    border: none;
+
+    background: #151515;
+
+    color: white;
+
+    padding: 10px 13px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   ADMIN PROFILE
+   ========================================================= */
+
+.admin-profile {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.profile-avatar {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #d9edbd;
+
+    color: #151515;
+
+    font-size: 13px;
+
+    font-weight: 800;
+}
+
+.profile-info strong {
+    display: block;
+
+    font-size: 12px;
+}
+
+.profile-info span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #888;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   STATISTICS
+   ========================================================= */
+
+.stats-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 28px;
+}
+
+.stat-card {
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 24px;
+
+    background: white;
+
+    border: 1px solid #e0ded7;
+
+    transition: all 0.25s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.07);
+}
+
+.stat-card::after {
+    content: "";
+
+    position: absolute;
+
+    right: -25px;
+    bottom: -25px;
+
+    width: 80px;
+    height: 80px;
+
+    border-radius: 50%;
+
+    background: #e5f1d5;
+}
+
+.stat-label {
+    color: #888;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+}
+
+.stat-value {
+    margin-top: 12px;
+
+    font-size: 31px;
+
+    font-weight: 700;
+}
+
+.stat-change {
+    margin-top: 8px;
+
+    color: #4e7f37;
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   CONTENT GRID
+   ========================================================= */
+
+.dashboard-grid {
+    display: grid;
+
+    grid-template-columns: 1.5fr 1fr;
+
+    gap: 25px;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   PANELS
+   ========================================================= */
+
+.dashboard-panel {
+    padding: 25px;
+
+    background: white;
+
+    border: 1px solid #e0ded7;
+}
+
+.panel-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 22px;
+}
+
+.panel-header h2 {
+    font-size: 17px;
+}
+
+.panel-header span {
+    color: #888;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   SALES CHART
+   ========================================================= */
+
+.sales-chart {
+    height: 235px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-around;
+
+    gap: 12px;
+
+    padding: 20px 5px 0;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.chart-bar-group {
+    height: 100%;
+
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-end;
+
+    align-items: center;
+}
+
+.chart-bar {
+    position: relative;
+
+    width: 42px;
+
+    max-width: 100%;
+
+    background: #273d2b;
+
+    transition: all 0.5s ease;
+}
+
+.chart-bar:hover {
+    background: #8fb65d;
+
+    transform: scaleY(1.03);
+}
+
+.chart-value {
+    position: absolute;
+
+    top: -20px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    color: #777;
+
+    font-size: 8px;
+
+    white-space: nowrap;
+}
+
+.chart-label {
+    margin-top: 9px;
+
+    color: #888;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   QUICK ACTIONS
+   ========================================================= */
+
+.quick-actions {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+}
+
+.quick-action {
+    padding: 18px;
+
+    border: 1px solid #ddd;
+
+    background: #fafaf7;
+
+    cursor: pointer;
+
+    text-align: left;
+
+    transition: all 0.25s ease;
+}
+
+.quick-action:hover {
+    background: #171717;
+
+    color: white;
+
+    transform: translateY(-2px);
+}
+
+.quick-action-icon {
+    margin-bottom: 10px;
+
+    font-size: 20px;
+}
+
+.quick-action strong {
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-size: 11px;
+}
+
+.quick-action span {
+    color: #888;
+
+    font-size: 9px;
+}
+
+.quick-action:hover span {
+    color: #aaa;
+}
+
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.table-panel {
+    padding: 25px;
+
+    background: white;
+
+    border: 1px solid #e0ded7;
+
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 650px;
+}
+
+.admin-table th {
+    padding: 14px 10px;
+
+    border-bottom: 1px solid #ddd;
+
+    color: #888;
+
+    text-align: left;
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+
+    font-weight: 600;
+}
+
+.admin-table td {
+    padding: 16px 10px;
+
+    border-bottom: 1px solid #eee;
+
+    font-size: 11px;
+}
+
+.admin-table tr:hover td {
+    background: #fafaf7;
+}
+
+.order-id {
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.status {
+    display: inline-block;
+
+    padding: 5px 8px;
+
+    font-size: 8px;
+
+    letter-spacing: 1px;
+
+    font-weight: 700;
+}
+
+.status.processing {
+    background: #fff1d9;
+
+    color: #9a681f;
+}
+
+.status.shipped {
+    background: #dcebd4;
+
+    color: #466f35;
+}
+
+.status.delivered {
+    background: #dceeea;
+
+    color: #367466;
+}
+
+.status.cancelled {
+    background: #f3dddd;
+
+    color: #9a3f3f;
+}
+
+
+/* =========================================================
+   PRODUCT SECTION
+   ========================================================= */
+
+.products-section {
+    margin-top: 25px;
+}
+
+.product-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 16px;
+}
+
+.admin-product-card {
+    overflow: hidden;
+
+    background: white;
+
+    border: 1px solid #e0ded7;
+
+    transition: all 0.25s ease;
+}
+
+.admin-product-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.product-image {
+    height: 175px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #e6e4dc;
+
+    overflow: hidden;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.4s ease;
+}
+
+.admin-product-card:hover .product-image img {
+    transform: scale(1.05);
+}
+
+.product-placeholder {
+    color: #888;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+}
+
+.product-details {
+    padding: 15px;
+}
+
+.product-category {
+    color: #888;
+
+    font-size: 8px;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+.product-details h3 {
+    margin-top: 6px;
+
+    font-size: 13px;
+
+    line-height: 1.3;
+}
+
+.product-bottom {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-top: 12px;
+}
+
+.product-price {
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+.product-stock {
+    color: #568341;
+
+    font-size: 8px;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 11px 17px;
+
+    border: 1px solid #171717;
+
+    background: #171717;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    font-weight: 700;
+
+    transition: all 0.25s ease;
+}
+
+.btn:hover {
+    background: white;
+
+    color: #171717;
+}
+
+.btn-light {
+    background: white;
+
+    color: #171717;
+}
+
+.btn-light:hover {
+    background: #171717;
+
+    color: white;
+}
+
+.btn-danger {
+    background: #a63b3b;
+
+    border-color: #a63b3b;
+}
+
+.btn-danger:hover {
+    background: white;
+
+    color: #a63b3b;
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.admin-search {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border: 1px solid #d0cec6;
+
+    background: white;
+
+    outline: none;
+
+    font-size: 11px;
+
+    transition: border-color 0.2s ease;
+}
+
+.admin-search:focus {
+    border-color: #171717;
+}
+
+
+/* =========================================================
+   FILTER BAR
+   ========================================================= */
+
+.filter-bar {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+}
+
+.filter-select {
+    padding: 11px 13px;
+
+    border: 1px solid #d0cec6;
+
+    background: white;
+
+    outline: none;
+
+    font-size: 10px;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 500;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0, 0, 0, 0.65);
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-box {
+    width: 100%;
+
+    max-width: 500px;
+
+    padding: 30px;
+
+    background: white;
+
+    animation: modalIn 0.3s ease;
+}
+
+@keyframes modalIn {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(20px)
+            scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+.modal-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+.modal-header h2 {
+    font-size: 22px;
+}
+
+.modal-close {
+    border: none;
+
+    background: none;
+
+    cursor: pointer;
+
+    font-size: 23px;
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #777;
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+
+    padding: 13px;
+
+    border: 1px solid #ccc;
+
+    background: white;
+
+    outline: none;
+
+    font-size: 12px;
+}
+
+.form-group textarea {
+    min-height: 100px;
+
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #171717;
+}
+
+.form-actions {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 22px;
+}
+
+
+/* =========================================================
+   IMPACT CARDS
+   ========================================================= */
+
+.impact-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 18px;
+}
+
+.impact-card {
+    padding: 25px;
+
+    background: white;
+
+    border: 1px solid #e0ded7;
+}
+
+.impact-card-icon {
+    font-size: 25px;
+
+    margin-bottom: 15px;
+}
+
+.impact-card h3 {
+    font-size: 25px;
+}
+
+.impact-card p {
+    margin-top: 6px;
+
+    color: #888;
+
+    font-size: 10px;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* =========================================================
+   USER CARDS
+   ========================================================= */
+
+.user-list {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 15px;
+}
+
+.user-card {
+    padding: 20px;
+
+    background: white;
+
+    border: 1px solid #e0ded7;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+
+    margin-bottom: 12px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #e5f1d5;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+.user-card h3 {
+    font-size: 13px;
+}
+
+.user-card p {
+    margin-top: 5px;
+
+    color: #888;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   PRE-LOVED
+   ========================================================= */
+
+.preloved-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 18px;
+}
+
+.preloved-card {
+    background: white;
+
+    border: 1px solid #e0ded7;
+
+    overflow: hidden;
+}
+
+.preloved-image {
+    height: 190px;
+
+    background: #e5e3db;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: #888;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+}
+
+.preloved-info {
+    padding: 17px;
+}
+
+.preloved-info h3 {
+    font-size: 14px;
+}
+
+.preloved-info p {
+    margin-top: 6px;
+
+    color: #777;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   NOTIFICATION / TOAST
+   ========================================================= */
+
+.toast {
+    position: fixed;
+
+    right: 25px;
+    bottom: 25px;
+
+    z-index: 1000;
+
+    padding: 15px 22px;
+
+    background: #171717;
+
+    color: white;
+
+    font-size: 11px;
+
+    transform: translateY(50px);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: all 0.3s ease;
+}
+
+.toast.show {
+    transform: translateY(0);
+
+    opacity: 1;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.empty-state {
+    padding: 70px 20px;
+
+    border: 1px dashed #ccc;
+
+    background: white;
+
+    text-align: center;
+}
+
+.empty-state-icon {
+    margin-bottom: 15px;
+
+    font-size: 35px;
+}
+
+.empty-state h2 {
+    font-size: 23px;
+}
+
+.empty-state p {
+    margin-top: 7px;
+
+    color: #888;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   DEMO BADGE
+   ========================================================= */
+
+.demo-badge {
+    display: inline-block;
+
+    padding: 6px 10px;
+
+    background: #d9edbd;
+
+    color: #314522;
+
+    font-size: 8px;
+
+    letter-spacing: 1.5px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   MOBILE OVERLAY
+   ========================================================= */
+
+.sidebar-overlay {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 90;
+
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.sidebar-overlay.active {
+    display: block;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1150px) {
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* =========================================================
+   SMALL LAPTOP / TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .admin-main {
+        width: 100%;
+
+        margin-left: 0;
+
+        padding: 25px;
+    }
+
+    .mobile-menu {
+        display: block;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .impact-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .user-list {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .preloved-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .admin-main {
+        padding: 20px 15px 40px;
+    }
+
+    .admin-topbar {
+        margin-bottom: 25px;
+    }
+
+    .page-heading h1 {
+        font-size: 27px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+    }
+
+    .stat-card {
+        padding: 20px;
+    }
+
+    .quick-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .impact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .user-list {
+        grid-template-columns: 1fr;
+    }
+
+    .preloved-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-info {
+        display: none;
+    }
+
+    .dashboard-panel,
+    .table-panel {
+        padding: 18px;
+    }
+
+    .sales-chart {
+        height: 200px;
+
+        gap: 5px;
+    }
+
+    .chart-bar {
+        width: 25px;
+    }
+
+    .chart-value {
+        font-size: 7px;
+    }
+
+    .filter-bar {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .page-heading h1 {
+        font-size: 24px;
+    }
+
+    .stat-value {
+        font-size: 27px;
+    }
+
+    .sales-chart {
+        height: 180px;
+    }
+
+}

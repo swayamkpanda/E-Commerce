@@ -2,14 +2,9 @@
 
 /*
 |--------------------------------------------------------------------------
-| SSISS - REMOVE CART ITEM API
+| SSISS - GET CART API
 |--------------------------------------------------------------------------
-| POST /api/cart/remove.php
-|
-| JSON:
-| {
-|     "cart_item_id": 1
-| }
+| GET /api/cart/get.php
 |--------------------------------------------------------------------------
 */
 
@@ -38,14 +33,14 @@ function response($success, $message, $data = [], $status = 200)
 
 
 // ==========================================================
-// ONLY POST
+// ONLY GET REQUEST
 // ==========================================================
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 
     response(
         false,
-        'Only POST requests are allowed.',
+        'Only GET requests are allowed.',
         [],
         405
     );
@@ -73,11 +68,12 @@ if (
 
     response(
         false,
-        'Please login to remove items from your cart.',
+        'Please login to view your cart.',
         [],
         401
     );
 }
+
 
 $userId = (int) $_SESSION['user_id'];
 
@@ -86,8 +82,7 @@ $userId = (int) $_SESSION['user_id'];
 // DATABASE CONNECTION
 // ==========================================================
 
-$databasePath =
-    __DIR__ . '/../../config/database.php';
+$databasePath = __DIR__ . '/../../config/database.php';
 
 if (!file_exists($databasePath)) {
 
@@ -101,6 +96,8 @@ if (!file_exists($databasePath)) {
 
 require_once $databasePath;
 
+
+// Check PDO connection
 
 if (
     !isset($pdo) ||
@@ -117,66 +114,64 @@ if (
 
 
 // ==========================================================
-// READ JSON
-// ==========================================================
-
-$rawInput =
-    file_get_contents('php://input');
-
-$input =
-    json_decode(
-        $rawInput,
-        true
-    );
-
-
-if (!is_array($input)) {
-
-    response(
-        false,
-        'Invalid JSON request.',
-        [],
-        400
-    );
-}
-
-
-// ==========================================================
-// INPUT
-// ==========================================================
-
-$cartItemId =
-    isset($input['cart_item_id'])
-        ? (int) $input['cart_item_id']
-        : 0;
-
-
-// ==========================================================
-// VALIDATE
-// ==========================================================
-
-if ($cartItemId <= 0) {
-
-    response(
-        false,
-        'A valid cart_item_id is required.',
-        [],
-        422
-    );
-}
-
-
-// ==========================================================
-// REMOVE ITEM
+// GET CART
 // ==========================================================
 
 try {
 
     // ------------------------------------------------------
-    // Find item belonging to current user
+    // Find user's cart
     // ------------------------------------------------------
 
-    $findSql = "
+    $cartSql = "
+        SELECT id
+        FROM cart
+        WHERE user_id = ?
+        LIMIT 1
+    ";
+
+    $cartStmt = $pdo->prepare($cartSql);
+
+    $cartStmt->execute([
+        $userId
+    ]);
+
+    $cart = $cartStmt->fetch(PDO::FETCH_ASSOC);
+
+
+    // ------------------------------------------------------
+    // CART DOES NOT EXIST
+    // ------------------------------------------------------
+
+    if (!$cart) {
+
+        response(
+            true,
+            'Cart is empty.',
+            [
+                'cart_id' => null,
+
+                'items' => [],
+
+                'summary' => [
+                    'item_count' => 0,
+                    'total_quantity' => 0,
+                    'subtotal' => 0
+                ]
+            ],
+            200
+        );
+    }
+
+
+    $cartId = (int) $cart['id'];
+
+
+    // ------------------------------------------------------
+    // GET CART ITEMS
+    // ------------------------------------------------------
+
+    $itemsSql = "
         SELECT
 
             ci.id AS cart_item_id,
@@ -185,96 +180,112 @@ try {
 
             ci.quantity,
 
-            c.id AS cart_id,
+            p.name,
 
-            p.name
+            p.price,
+
+            p.stock
 
         FROM cart_items ci
-
-        INNER JOIN cart c
-            ON c.id = ci.cart_id
 
         INNER JOIN products p
             ON p.id = ci.product_id
 
-        WHERE ci.id = ?
+        WHERE ci.cart_id = ?
 
-        AND c.user_id = ?
-
-        LIMIT 1
+        ORDER BY ci.id DESC
     ";
 
-    $findStmt =
-        $pdo->prepare($findSql);
+    $itemsStmt = $pdo->prepare($itemsSql);
 
-    $findStmt->execute([
-        $cartItemId,
-        $userId
+    $itemsStmt->execute([
+        $cartId
     ]);
 
-    $item =
-        $findStmt->fetch(
-            PDO::FETCH_ASSOC
-        );
+    $rows = $itemsStmt->fetchAll(PDO::FETCH_ASSOC);
 
 
     // ------------------------------------------------------
-    // ITEM NOT FOUND
+    // PREPARE CART DATA
     // ------------------------------------------------------
 
-    if (!$item) {
+    $items = [];
 
-        response(
-            false,
-            'Cart item not found.',
-            [],
-            404
-        );
+    $subtotal = 0;
+
+    $totalQuantity = 0;
+
+
+    foreach ($rows as $row) {
+
+        $quantity = (int) $row['quantity'];
+
+        $price = (float) $row['price'];
+
+        $itemTotal = $price * $quantity;
+
+
+        $subtotal += $itemTotal;
+
+        $totalQuantity += $quantity;
+
+
+        $items[] = [
+
+            'cart_item_id' =>
+                (int) $row['cart_item_id'],
+
+            'product_id' =>
+                (int) $row['product_id'],
+
+            'name' =>
+                $row['name'],
+
+            'price' =>
+                $price,
+
+            'quantity' =>
+                $quantity,
+
+            'stock' =>
+                (int) $row['stock'],
+
+            'item_total' =>
+                round($itemTotal, 2)
+
+        ];
     }
 
 
     // ------------------------------------------------------
-    // DELETE
-    // ------------------------------------------------------
-
-    $deleteSql = "
-        DELETE FROM cart_items
-        WHERE id = ?
-    ";
-
-    $deleteStmt =
-        $pdo->prepare($deleteSql);
-
-    $deleteStmt->execute([
-        $cartItemId
-    ]);
-
-
-    // ------------------------------------------------------
-    // SUCCESS
+    // RETURN CART
     // ------------------------------------------------------
 
     response(
         true,
 
-        'Product removed from cart successfully.',
+        'Cart retrieved successfully.',
 
         [
 
             'cart_id' =>
-                (int) $item['cart_id'],
+                $cartId,
 
-            'cart_item_id' =>
-                $cartItemId,
+            'items' =>
+                $items,
 
-            'product_id' =>
-                (int) $item['product_id'],
+            'summary' => [
 
-            'product_name' =>
-                $item['name'],
+                'item_count' =>
+                    count($items),
 
-            'removed_quantity' =>
-                (int) $item['quantity']
+                'total_quantity' =>
+                    $totalQuantity,
+
+                'subtotal' =>
+                    round($subtotal, 2)
+
+            ]
 
         ],
 
@@ -286,7 +297,7 @@ try {
 
     response(
         false,
-        'Unable to remove product from cart.',
+        'Unable to retrieve cart.',
         [],
         500
     );

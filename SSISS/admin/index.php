@@ -1,11 +1,11 @@
 <?php
-// TODO: Implement this SSISS module.
+// TODO: Implement this YFF module.
 
 session_start();
 
 /*
 |--------------------------------------------------------------------------
-| SSISS ADMIN DASHBOARD
+| YFF ADMIN DASHBOARD
 |--------------------------------------------------------------------------
 | Temporary demo data is used for now.
 | We will connect this page to MySQL later.
@@ -72,17 +72,1178 @@ $recentOrders = [
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>SSISS Admin Dashboard</title>
+    <title>YFF Admin Dashboard</title>
 
-    <link
+    <!-- <link
         rel="stylesheet"
         href="../assets/css/dashboard.css"
     >
 
     <link
         rel="stylesheet"
-        href="../assets/css/style.css"
-    >
+        href="../assets/css/style.css" -->
+        <style>
+
+/* =========================================================
+   YFF ADMIN DASHBOARD - INTERNAL CSS
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f3ee;
+    color: #171717;
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   MAIN LAYOUT
+   ========================================================= */
+
+.admin-layout {
+    min-height: 100vh;
+    display: flex;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    background: #151515;
+    color: white;
+
+    padding: 28px 18px;
+
+    z-index: 1000;
+
+    overflow-y: auto;
+}
+
+
+/* =========================================================
+   ADMIN LOGO
+   ========================================================= */
+
+.admin-logo {
+    padding: 8px 14px 35px;
+}
+
+.admin-logo h1 {
+    font-size: 30px;
+    font-weight: 900;
+
+    letter-spacing: 5px;
+}
+
+.admin-logo p {
+    margin-top: 5px;
+
+    color: #888;
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+}
+
+.admin-badge {
+    display: inline-block;
+
+    margin-top: 18px;
+
+    padding: 6px 10px;
+
+    border: 1px solid #444;
+
+    color: #c7e899;
+
+    font-size: 8px;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.admin-nav {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+.admin-nav a,
+.admin-nav button {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 14px 15px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #999;
+
+    text-decoration: none;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    border-radius: 5px;
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+
+    transition: all .25s ease;
+}
+
+.admin-nav a:hover,
+.admin-nav button:hover {
+
+    background: #252525;
+
+    color: white;
+}
+
+.admin-nav a.active,
+.admin-nav button.active {
+
+    background: #d9edbd;
+
+    color: #151515;
+
+    font-weight: 700;
+}
+
+.nav-icon {
+
+    width: 22px;
+
+    display: inline-flex;
+
+    justify-content: center;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   SIDEBAR BOTTOM
+   ========================================================= */
+
+.sidebar-bottom {
+
+    position: absolute;
+
+    left: 18px;
+    right: 18px;
+    bottom: 25px;
+}
+
+.back-store {
+
+    display: block;
+
+    padding: 12px;
+
+    border: 1px solid #3c3c3c;
+
+    color: #aaa;
+
+    text-decoration: none;
+
+    text-align: center;
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+
+    transition: .25s;
+}
+
+.back-store:hover {
+
+    color: white;
+
+    border-color: white;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.admin-main {
+
+    width: calc(100% - 250px);
+
+    margin-left: 250px;
+
+    min-height: 100vh;
+
+    padding: 30px 40px 60px;
+}
+
+
+/* =========================================================
+   TOP BAR
+   ========================================================= */
+
+.admin-topbar {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 35px;
+}
+
+.page-heading small {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #888;
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+}
+
+.page-heading h1 {
+
+    font-size: 36px;
+
+    letter-spacing: -1.5px;
+}
+
+
+/* =========================================================
+   ADMIN PROFILE
+   ========================================================= */
+
+.admin-profile {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.profile-avatar {
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    background: #d9edbd;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #171717;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+.profile-info strong {
+
+    display: block;
+
+    font-size: 12px;
+}
+
+.profile-info span {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color: #888;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   MOBILE MENU
+   ========================================================= */
+
+.mobile-menu {
+
+    display: none;
+
+    border: none;
+
+    background: #171717;
+
+    color: white;
+
+    padding: 10px 13px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   STATISTICS
+   ========================================================= */
+
+.stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 28px;
+}
+
+.stat-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 24px;
+
+    background: white;
+
+    border: 1px solid #dfddd6;
+
+    transition: .25s;
+}
+
+.stat-card:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 15px 30px
+        rgba(0,0,0,.07);
+}
+
+.stat-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    right: -25px;
+    bottom: -25px;
+
+    width: 85px;
+    height: 85px;
+
+    border-radius: 50%;
+
+    background: #e4f1d2;
+}
+
+.stat-label {
+
+    color: #888;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+}
+
+.stat-value {
+
+    margin-top: 12px;
+
+    font-size: 31px;
+
+    font-weight: 700;
+}
+
+.stat-change {
+
+    margin-top: 8px;
+
+    color: #4d8038;
+
+    font-size: 9px;
+
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   CONTENT GRID
+   ========================================================= */
+
+.content-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1.5fr 1fr;
+
+    gap: 25px;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   PANELS
+   ========================================================= */
+
+.panel {
+
+    background: white;
+
+    border: 1px solid #dfddd6;
+
+    padding: 25px;
+}
+
+.panel-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 22px;
+}
+
+.panel-header h2 {
+
+    font-size: 17px;
+}
+
+.panel-header span {
+
+    color: #888;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   SALES CHART
+   ========================================================= */
+
+.chart {
+
+    height: 235px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-around;
+
+    gap: 12px;
+
+    padding:
+        20px 5px 0;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.bar-group {
+
+    height: 100%;
+
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-end;
+
+    align-items: center;
+}
+
+.bar {
+
+    position: relative;
+
+    width: 42px;
+
+    max-width: 100%;
+
+    background: #273d2b;
+
+    transition: .4s;
+}
+
+.bar:hover {
+
+    background: #8fb65d;
+}
+
+.bar-value {
+
+    position: absolute;
+
+    top: -20px;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    color: #777;
+
+    font-size: 8px;
+
+    white-space: nowrap;
+}
+
+.bar-label {
+
+    margin-top: 9px;
+
+    color: #888;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   QUICK ACTIONS
+   ========================================================= */
+
+.quick-actions {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 12px;
+}
+
+.action {
+
+    padding: 18px;
+
+    border: 1px solid #ddd;
+
+    background: #fafaf7;
+
+    cursor: pointer;
+
+    text-align: left;
+
+    transition: .25s;
+}
+
+.action:hover {
+
+    background: #171717;
+
+    color: white;
+
+    transform:
+        translateY(-2px);
+}
+
+.action-icon {
+
+    margin-bottom: 10px;
+
+    font-size: 20px;
+}
+
+.action strong {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-size: 11px;
+}
+
+.action span {
+
+    color: #888;
+
+    font-size: 9px;
+}
+
+.action:hover span {
+
+    color: #aaa;
+}
+
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.table-panel {
+
+    background: white;
+
+    border: 1px solid #dfddd6;
+
+    padding: 25px;
+
+    overflow-x: auto;
+}
+
+table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 650px;
+}
+
+th {
+
+    padding: 14px 10px;
+
+    border-bottom: 1px solid #ddd;
+
+    color: #888;
+
+    text-align: left;
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+}
+
+td {
+
+    padding: 16px 10px;
+
+    border-bottom: 1px solid #eee;
+
+    font-size: 11px;
+}
+
+tr:hover td {
+
+    background: #fafaf7;
+}
+
+.order-id {
+
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   STATUS BADGES
+   ========================================================= */
+
+.status {
+
+    display: inline-block;
+
+    padding: 5px 8px;
+
+    font-size: 8px;
+
+    letter-spacing: 1px;
+
+    font-weight: bold;
+}
+
+.processing {
+
+    background: #fff1d9;
+
+    color: #9a681f;
+}
+
+.shipped {
+
+    background: #dcebd4;
+
+    color: #466f35;
+}
+
+.delivered {
+
+    background: #dceeea;
+
+    color: #367466;
+}
+
+.cancelled {
+
+    background: #f3dddd;
+
+    color: #9a3f3f;
+}
+
+
+/* =========================================================
+   PRODUCTS
+   ========================================================= */
+
+.product-section {
+
+    margin-top: 25px;
+}
+
+.product-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 16px;
+}
+
+.product-card {
+
+    background: white;
+
+    border: 1px solid #dfddd6;
+
+    overflow: hidden;
+
+    transition: .25s;
+}
+
+.product-card:hover {
+
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,0,0,.06);
+}
+
+.product-photo {
+
+    height: 175px;
+
+    background: #e6e4dc;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #888;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    overflow: hidden;
+}
+
+.product-photo img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.product-details {
+
+    padding: 15px;
+}
+
+.product-details small {
+
+    color: #888;
+
+    font-size: 8px;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+.product-details h3 {
+
+    margin-top: 6px;
+
+    font-size: 13px;
+
+    line-height: 1.3;
+}
+
+.product-bottom {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-top: 12px;
+}
+
+.product-price {
+
+    font-size: 12px;
+
+    font-weight: bold;
+}
+
+.stock {
+
+    color: #568341;
+
+    font-size: 8px;
+}
+
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 5000;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(0,0,0,.65);
+}
+
+.modal.active {
+
+    display: flex;
+}
+
+.modal-box {
+
+    width: 100%;
+
+    max-width: 500px;
+
+    padding: 30px;
+
+    background: white;
+
+    animation:
+        modalIn .3s ease;
+}
+
+@keyframes modalIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(20px)
+            scale(.97);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+.modal-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+.modal-header h2 {
+
+    font-size: 22px;
+}
+
+.close {
+
+    border: none;
+
+    background: none;
+
+    cursor: pointer;
+
+    font-size: 23px;
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.form-group {
+
+    margin-bottom: 18px;
+}
+
+.form-group label {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #777;
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+}
+
+.form-group input {
+
+    width: 100%;
+
+    padding: 13px;
+
+    border: 1px solid #ccc;
+
+    outline: none;
+
+    font-size: 12px;
+}
+
+.form-group input:focus {
+
+    border-color: #171717;
+}
+
+.save-product {
+
+    width: 100%;
+
+    padding: 15px;
+
+    border: none;
+
+    background: #171717;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    letter-spacing: 1.5px;
+}
+
+.save-product:hover {
+
+    background: #333;
+}
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+.toast {
+
+    position: fixed;
+
+    right: 25px;
+    bottom: 25px;
+
+    z-index: 10000;
+
+    padding: 15px 22px;
+
+    background: #171717;
+
+    color: white;
+
+    font-size: 11px;
+
+    transform:
+        translateY(50px);
+
+    opacity: 0;
+
+    transition: .3s;
+}
+
+.toast.show {
+
+    transform:
+        translateY(0);
+
+    opacity: 1;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media(max-width: 1100px) {
+
+    .stats {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .product-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+@media(max-width: 850px) {
+
+    .sidebar {
+
+        transform:
+            translateX(-100%);
+    }
+
+    .sidebar.open {
+
+        transform:
+            translateX(0);
+    }
+
+    .admin-main {
+
+        width: 100%;
+
+        margin-left: 0;
+
+        padding: 25px;
+    }
+
+    .mobile-menu {
+
+        display: block;
+    }
+
+    .content-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media(max-width: 600px) {
+
+    .admin-main {
+
+        padding: 20px 15px;
+    }
+
+    .stats {
+
+        grid-template-columns: 1fr;
+    }
+
+    .product-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .quick-actions {
+
+        grid-template-columns: 1fr;
+    }
+
+    .profile-info {
+
+        display: none;
+    }
+
+    .panel,
+    .table-panel {
+
+        padding: 18px;
+    }
+
+    .page-heading h1 {
+
+        font-size: 28px;
+    }
+
+}
+
+</style>
+    
 </head>
 
 <body>
@@ -96,7 +1257,7 @@ $recentOrders = [
     <aside class="admin-sidebar">
 
         <div class="admin-logo">
-            S<span>SISS</span>
+            S<span>YFF</span>
         </div>
 
         <div class="admin-label">
@@ -194,7 +1355,7 @@ $recentOrders = [
             <div class="admin-nav-divider"></div>
 
             <div class="admin-section-title">
-                SSISS AI & REWARDS
+                YFF AI & REWARDS
             </div>
 
             <a
@@ -202,7 +1363,7 @@ $recentOrders = [
                 class="admin-nav-item"
             >
                 <span>🪙</span>
-                SSISS Coins
+                YFF Coins
             </a>
 
             <a
@@ -286,7 +1447,7 @@ $recentOrders = [
             <div>
 
                 <p class="admin-breadcrumb">
-                    SSISS / Dashboard
+                    YFF / Dashboard
                 </p>
 
                 <h1>
@@ -294,7 +1455,7 @@ $recentOrders = [
                 </h1>
 
                 <p class="admin-subtitle">
-                    Here's what's happening across SSISS today.
+                    Here's what's happening across YFF today.
                 </p>
 
             </div>
@@ -590,7 +1751,7 @@ $recentOrders = [
 
                     <div>
                         <h3>Quick Actions</h3>
-                        <p>Manage SSISS quickly</p>
+                        <p>Manage YFF quickly</p>
                     </div>
 
                 </div>
@@ -629,7 +1790,7 @@ $recentOrders = [
                         <span>🪙</span>
                         <div>
                             <strong>Manage Rewards</strong>
-                            <small>Configure SSISS Coins</small>
+                            <small>Configure YFF Coins</small>
                         </div>
                     </a>
 
@@ -707,7 +1868,7 @@ $recentOrders = [
                 <div class="panel-header">
 
                     <div>
-                        <h3>SSISS Impact</h3>
+                        <h3>YFF Impact</h3>
                         <p>Community & sustainability</p>
                     </div>
 
@@ -755,7 +1916,7 @@ $recentOrders = [
 
 
         <footer class="admin-footer">
-            <span>SSISS Admin Panel</span>
+            <span>YFF Admin Panel</span>
             <span>Fashion • AI • Impact</span>
         </footer>
 

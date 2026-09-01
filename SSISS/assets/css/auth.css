@@ -1,1 +1,849 @@
-// TODO: Implement this SSISS asset.
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    overflow: hidden;
+
+    font-family:
+        Inter,
+        Arial,
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #ffffff 0%,
+            #f3f3f3 55%,
+            #dcdcdc 100%
+        );
+
+    color: #111;
+}
+
+
+/* =========================
+   SCENE
+========================= */
+
+.auth-scene {
+
+    position: relative;
+
+    width: 100%;
+    height: 100vh;
+
+    min-height: 650px;
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Ground */
+
+.auth-scene::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 5%;
+    right: 5%;
+
+    bottom: 105px;
+
+    height: 2px;
+
+    background: #d2d2d2;
+}
+
+
+/* =========================
+   AUTH CARD
+========================= */
+
+.auth-card {
+
+    position: absolute;
+
+    z-index: 5;
+
+    width: 390px;
+
+    max-width: 88%;
+
+    padding: 35px;
+
+    background: rgba(255,255,255,.96);
+
+    border: 1px solid #ddd;
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 30px 70px rgba(0,0,0,.15);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform:
+        translateY(30px)
+        scale(.92);
+
+    transition:
+        opacity .5s ease,
+        transform .6s cubic-bezier(.2,.8,.2,1);
+}
+
+
+.auth-card.visible {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* Logo */
+
+.auth-logo {
+
+    font-size: 14px;
+
+    font-weight: 900;
+
+    letter-spacing: 5px;
+
+    margin-bottom: 18px;
+}
+
+
+.auth-card h1 {
+
+    font-size: 30px;
+
+    font-weight: 900;
+
+    letter-spacing: -1px;
+
+    margin-bottom: 7px;
+}
+
+
+.auth-subtitle {
+
+    color: #777;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    margin-bottom: 22px;
+}
+
+
+/* Inputs */
+
+.input-group {
+
+    margin-bottom: 16px;
+}
+
+
+.input-group label {
+
+    display: block;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    margin-bottom: 7px;
+}
+
+
+.input-group input {
+
+    width: 100%;
+
+    padding: 13px 14px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 11px;
+
+    outline: none;
+
+    background: #fafafa;
+
+    font-size: 14px;
+
+    transition: .2s;
+}
+
+
+.input-group input:focus {
+
+    border-color: #111;
+
+    background: white;
+}
+
+
+/* Submit */
+
+.auth-submit {
+
+    width: 100%;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background: #050505;
+
+    color: white;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+
+.auth-submit:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.18);
+}
+
+
+/* Switch */
+
+.auth-switch {
+
+    text-align: center;
+
+    margin-top: 17px;
+
+    color: #777;
+
+    font-size: 13px;
+}
+
+
+.auth-switch a {
+
+    color: #111;
+
+    font-weight: 800;
+
+    text-decoration: underline;
+}
+
+
+/* =========================
+   SHADOW RUNNER
+========================= */
+
+.shadow-runner {
+
+    position: absolute;
+
+    z-index: 10;
+
+    left: -230px;
+
+    top: calc(50% - 30px);
+
+    width: 190px;
+
+    height: 190px;
+}
+
+
+/* Running entrance */
+
+.shadow-runner.run-in {
+
+    animation:
+        runIn
+        1.5s
+        cubic-bezier(.65,0,.2,1)
+        forwards;
+}
+
+
+/* Running exit */
+
+.shadow-runner.run-out {
+
+    animation:
+        runOut
+        1.15s
+        cubic-bezier(.7,0,.2,1)
+        forwards;
+}
+
+
+/* =========================
+   SHADOW CHARACTER
+========================= */
+
+.shadow-head {
+
+    position: absolute;
+
+    left: 38px;
+
+    top: 0;
+
+    width: 55px;
+
+    height: 55px;
+
+    border-radius: 50%;
+
+    background: #050505;
+}
+
+
+.shadow-body {
+
+    position: absolute;
+
+    left: 31px;
+
+    top: 42px;
+
+    width: 70px;
+
+    height: 100px;
+
+    background: #050505;
+
+    border-radius:
+        35px
+        35px
+        18px
+        18px;
+}
+
+
+/* Arms */
+
+.shadow-arm {
+
+    position: absolute;
+
+    top: 57px;
+
+    width: 15px;
+
+    height: 70px;
+
+    border-radius: 20px;
+
+    background: #050505;
+
+    transform-origin: top center;
+}
+
+
+.arm-left {
+
+    left: 27px;
+
+    transform: rotate(45deg);
+}
+
+
+.arm-right {
+
+    left: 88px;
+
+    transform: rotate(-45deg);
+}
+
+
+/* Legs */
+
+.shadow-leg {
+
+    position: absolute;
+
+    top: 127px;
+
+    width: 19px;
+
+    height: 65px;
+
+    border-radius: 20px;
+
+    background: #050505;
+
+    transform-origin: top center;
+}
+
+
+.leg-left {
+
+    left: 46px;
+}
+
+
+.leg-right {
+
+    left: 76px;
+}
+
+
+/* Shoes */
+
+.shadow-shoe {
+
+    position: absolute;
+
+    top: 181px;
+
+    width: 38px;
+
+    height: 14px;
+
+    border-radius: 15px;
+
+    background: #050505;
+}
+
+
+.shoe-left {
+
+    left: 27px;
+}
+
+
+.shoe-right {
+
+    left: 76px;
+}
+
+
+/* =========================
+   TROLLEY
+========================= */
+
+.trolley {
+
+    position: absolute;
+
+    left: 96px;
+
+    top: 76px;
+
+    width: 88px;
+
+    height: 56px;
+
+    border:
+        7px solid #111;
+
+    border-top: 0;
+
+    border-radius:
+        3px
+        3px
+        13px
+        13px;
+
+    background: #aaa;
+
+    transform: skew(-8deg);
+}
+
+
+.trolley-handle {
+
+    position: absolute;
+
+    left: 78px;
+
+    top: 58px;
+
+    width: 42px;
+
+    height: 8px;
+
+    border-radius: 8px;
+
+    background: #111;
+
+    transform: rotate(7deg);
+}
+
+
+.trolley-wheel {
+
+    position: absolute;
+
+    top: 130px;
+
+    width: 17px;
+
+    height: 17px;
+
+    border-radius: 50%;
+
+    background: #111;
+}
+
+
+.wheel-left {
+
+    left: 105px;
+}
+
+
+.wheel-right {
+
+    left: 154px;
+}
+
+
+/* =========================
+   RUNNING ANIMATION
+========================= */
+
+.shadow-runner.running
+.shadow-body {
+
+    animation:
+        bodyBounce
+        .15s
+        infinite
+        alternate;
+}
+
+
+.shadow-runner.running
+.arm-left {
+
+    animation:
+        leftArm
+        .15s
+        infinite
+        alternate;
+}
+
+
+.shadow-runner.running
+.arm-right {
+
+    animation:
+        rightArm
+        .15s
+        infinite
+        alternate;
+}
+
+
+.shadow-runner.running
+.leg-left {
+
+    animation:
+        leftLeg
+        .15s
+        infinite
+        alternate;
+}
+
+
+.shadow-runner.running
+.leg-right {
+
+    animation:
+        rightLeg
+        .15s
+        infinite
+        alternate;
+}
+
+
+/* Body */
+
+@keyframes bodyBounce {
+
+    from {
+        transform:
+            translateY(0)
+            rotate(-2deg);
+    }
+
+    to {
+        transform:
+            translateY(-7px)
+            rotate(2deg);
+    }
+}
+
+
+/* Arms */
+
+@keyframes leftArm {
+
+    from {
+        transform: rotate(55deg);
+    }
+
+    to {
+        transform: rotate(-30deg);
+    }
+}
+
+
+@keyframes rightArm {
+
+    from {
+        transform: rotate(-55deg);
+    }
+
+    to {
+        transform: rotate(30deg);
+    }
+}
+
+
+/* Legs */
+
+@keyframes leftLeg {
+
+    from {
+        transform: rotate(52deg);
+    }
+
+    to {
+        transform: rotate(-55deg);
+    }
+}
+
+
+@keyframes rightLeg {
+
+    from {
+        transform: rotate(-55deg);
+    }
+
+    to {
+        transform: rotate(52deg);
+    }
+}
+
+
+/* Running across screen */
+
+@keyframes runIn {
+
+    from {
+        left: -230px;
+    }
+
+    to {
+        left: calc(50% - 95px);
+    }
+}
+
+
+@keyframes runOut {
+
+    from {
+        left: calc(50% - 95px);
+    }
+
+    to {
+        left: calc(100% + 40px);
+    }
+}
+
+
+/* =========================
+   SUCCESS
+========================= */
+
+.success-screen {
+
+    position: absolute;
+
+    z-index: 20;
+
+    inset: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        rgba(255,255,255,.97);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform: scale(.9);
+
+    transition: .5s ease;
+}
+
+
+.success-screen.visible {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform: scale(1);
+}
+
+
+.success-circle {
+
+    width: 100px;
+
+    height: 100px;
+
+    border-radius: 50%;
+
+    background: #050505;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    animation:
+        successPop
+        .6s
+        cubic-bezier(.2,1.5,.4,1);
+}
+
+
+.success-circle span {
+
+    color: white;
+
+    font-size: 55px;
+
+    font-weight: 400;
+
+    transform:
+        translateY(-3px);
+}
+
+
+.success-screen h2 {
+
+    margin-top: 22px;
+
+    font-size: 30px;
+
+    font-weight: 900;
+}
+
+
+.success-screen p {
+
+    margin-top: 7px;
+
+    color: #777;
+
+    font-size: 14px;
+}
+
+
+@keyframes successPop {
+
+    0% {
+        transform: scale(0);
+    }
+
+    70% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+/* Status */
+
+.auth-status {
+
+    position: absolute;
+
+    bottom: 65px;
+
+    left: 0;
+
+    right: 0;
+
+    text-align: center;
+
+    color: #777;
+
+    font-size: 12px;
+
+    z-index: 30;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .auth-scene {
+        min-height: 600px;
+    }
+
+    .auth-card {
+        padding: 25px;
+
+        width: 88%;
+    }
+
+    .auth-card h1 {
+        font-size: 25px;
+    }
+
+    .shadow-runner {
+        transform: scale(.8);
+
+        transform-origin:
+            left top;
+    }
+
+}
