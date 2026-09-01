@@ -4,7 +4,7 @@ session_start();
 
 /*
 |--------------------------------------------------------------------------
-| SSISS AI - WHAT SUITS ME?
+| YFF AI - WHAT SUITS ME?
 |--------------------------------------------------------------------------
 | User uploads a photo and receives fashion recommendations.
 |
@@ -226,7 +226,7 @@ if ($uploaded) {
         ],
 
         'recommendation' =>
-            'Your uploaded photo has been received. Based on the selected preferences, SSISS recommends clean, versatile pieces with a balanced silhouette.',
+            'Your uploaded photo has been received. Based on the selected preferences, YFF recommends clean, versatile pieces with a balanced silhouette.',
 
         'top' => [
             'name' =>
@@ -276,7 +276,7 @@ if ($uploaded) {
     >
 
     <title>
-        What Suits Me? | SSISS AI
+        What Suits Me? | YFF AI
     </title>
 
 </head>
@@ -330,7 +330,7 @@ if ($uploaded) {
 
 
     <p>
-        Upload a clear photo and SSISS AI will eventually
+        Upload a clear photo and YFF AI will eventually
         analyze your style preferences and recommend
         suitable fashion products.
     </p>
@@ -939,7 +939,7 @@ if ($uploaded) {
 
     <p>
         Your uploaded image is used only for the
-        SSISS styling experience.
+        YFF styling experience.
     </p>
 
 
@@ -1028,7 +1028,7 @@ if ($uploaded) {
     <p>
 
         <a href="../index.php">
-            ← SSISS Store
+            ← YFF Store
         </a>
 
     </p>

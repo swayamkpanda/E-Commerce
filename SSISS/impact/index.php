@@ -1,110 +1,3 @@
-<?php
-
-session_start();
-
-require_once __DIR__ . '/../config/database.php';
-require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/../includes/functions.php';
-
-$stats = [
-    'items_reused' => 0,
-    'textiles_saved' => 0,
-    'people_helped' => 0,
-    'donations_completed' => 0
-];
-
-$recentStories = [];
-
-try {
-
-    /*
-    |--------------------------------------------------------------------------
-    | Overall Impact Statistics
-    |--------------------------------------------------------------------------
-    */
-
-    $stmt = $pdo->query("
-        SELECT
-            COUNT(*) AS donations_completed,
-            COALESCE(SUM(quantity), 0) AS items_reused
-        FROM donations
-        WHERE status IN ('verified', 'completed', 'distributed')
-    ");
-
-    $donationStats = $stmt->fetch();
-
-    if ($donationStats) {
-        $stats['donations_completed'] =
-            (int) $donationStats['donations_completed'];
-
-        $stats['items_reused'] =
-            (int) $donationStats['items_reused'];
-    }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | People Helped
-    |--------------------------------------------------------------------------
-    */
-
-    $stmt = $pdo->query("
-        SELECT COUNT(*) AS people_helped
-        FROM impact_records
-        WHERE status = 'completed'
-    ");
-
-    $impactStats = $stmt->fetch();
-
-    if ($impactStats) {
-        $stats['people_helped'] =
-            (int) $impactStats['people_helped'];
-    }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Estimated Textile Weight
-    |--------------------------------------------------------------------------
-    |
-    | This is an estimate based on average textile weight.
-    | We can make this configurable later.
-    |
-    */
-
-    $stats['textiles_saved'] =
-        round($stats['items_reused'] * 0.45, 1);
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Recent Impact Stories
-    |--------------------------------------------------------------------------
-    */
-
-    $stmt = $pdo->query("
-        SELECT
-            id,
-            title,
-            short_description,
-            image,
-            created_at
-        FROM impact_stories
-        WHERE status = 'published'
-        ORDER BY created_at DESC
-        LIMIT 3
-    ");
-
-    $recentStories = $stmt->fetchAll();
-
-} catch (PDOException $e) {
-
-    // Keep page usable even if impact tables aren't created yet.
-
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -112,458 +5,762 @@ try {
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <title>Our Impact | SSISS</title>
+    <title>YFF | Impact</title>
 
-    <link
-        rel="stylesheet"
-        href="../assets/css/style.css"
-    >
+    <style>
 
-    <link
-        rel="stylesheet"
-        href="../assets/css/impact.css"
-    >
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f3ee;
+            color: #151515;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            height: 78px;
+
+            padding: 0 6%;
+
+            background: white;
+
+            border-bottom: 1px solid #ddd;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+        }
+
+        .logo {
+            color: #151515;
+
+            text-decoration: none;
+
+            font-size: 30px;
+
+            font-weight: 900;
+
+            letter-spacing: 5px;
+        }
+
+        .nav-links {
+            display: flex;
+
+            gap: 28px;
+
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #555;
+
+            text-decoration: none;
+
+            font-size: 10px;
+
+            letter-spacing: 1.5px;
+
+            text-transform: uppercase;
+
+            transition: .25s;
+        }
+
+        .nav-links a:hover {
+            color: #151515;
+        }
+
+        .nav-links .active {
+            color: #151515;
+
+            font-weight: bold;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            max-width: 1250px;
+
+            margin: auto;
+
+            padding: 90px 6% 60px;
+        }
+
+        .eyebrow {
+            color: #777;
+
+            font-size: 10px;
+
+            letter-spacing: 4px;
+        }
+
+        .hero h1 {
+            margin-top: 15px;
+
+            font-size: clamp(55px, 9vw, 110px);
+
+            line-height: .85;
+
+            letter-spacing: -7px;
+        }
+
+        .hero h1 span {
+            color: #55733d;
+        }
+
+        .hero-text {
+            max-width: 600px;
+
+            margin-top: 30px;
+
+            color: #777;
+
+            line-height: 1.8;
+
+            font-size: 14px;
+        }
+
+        /* ================= STATS ================= */
+
+        .stats {
+            max-width: 1250px;
+
+            margin: 20px auto 70px;
+
+            padding: 0 6%;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+        }
+
+        .stat {
+            background: white;
+
+            border: 1px solid #ddd9d0;
+
+            padding: 30px;
+
+            transition: .3s;
+        }
+
+        .stat:hover {
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 15px 30px
+                rgba(0,0,0,.07);
+        }
+
+        .stat-number {
+            font-size: 38px;
+
+            font-weight: 800;
+
+            letter-spacing: -2px;
+        }
+
+        .stat-label {
+            margin-top: 10px;
+
+            color: #777;
+
+            font-size: 9px;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+        }
+
+        .stat-icon {
+            margin-bottom: 20px;
+
+            font-size: 22px;
+        }
+
+        /* ================= IMPACT SECTION ================= */
+
+        .impact-section {
+            max-width: 1250px;
+
+            margin: auto;
+
+            padding: 0 6% 80px;
+        }
+
+        .section-title {
+            margin-bottom: 25px;
+        }
+
+        .section-title small {
+            color: #777;
+
+            font-size: 9px;
+
+            letter-spacing: 3px;
+        }
+
+        .section-title h2 {
+            margin-top: 8px;
+
+            font-size: 38px;
+
+            letter-spacing: -2px;
+        }
+
+        /* ================= IMPACT CARDS ================= */
+
+        .impact-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .impact-card {
+            min-height: 260px;
+
+            padding: 30px;
+
+            background: #171717;
+
+            color: white;
+
+            position: relative;
+
+            overflow: hidden;
+
+            transition: .3s;
+        }
+
+        .impact-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .impact-card::after {
+            content: "";
+
+            position: absolute;
+
+            width: 130px;
+
+            height: 130px;
+
+            right: -45px;
+
+            bottom: -45px;
+
+            border-radius: 50%;
+
+            background: #33452b;
+        }
+
+        .impact-icon {
+            font-size: 30px;
+
+            margin-bottom: 35px;
+        }
+
+        .impact-card h3 {
+            font-size: 28px;
+
+            letter-spacing: -1px;
+        }
+
+        .impact-card p {
+            margin-top: 10px;
+
+            max-width: 260px;
+
+            color: #aaa;
+
+            line-height: 1.6;
+
+            font-size: 11px;
+        }
+
+        /* ================= PROGRESS ================= */
+
+        .progress-section {
+            margin-top: 60px;
+
+            background: white;
+
+            border: 1px solid #ddd9d0;
+
+            padding: 35px;
+        }
+
+        .progress-title {
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 15px;
+        }
+
+        .progress-title strong {
+            font-size: 12px;
+        }
+
+        .progress-title span {
+            color: #55733d;
+
+            font-size: 11px;
+
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            width: 100%;
+
+            height: 8px;
+
+            background: #e3e1da;
+
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 76%;
+
+            height: 100%;
+
+            background: #55733d;
+
+            animation: grow 1.5s ease;
+        }
+
+        @keyframes grow {
+
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 76%;
+            }
+
+        }
+
+        /* ================= QUOTE ================= */
+
+        .quote {
+            max-width: 900px;
+
+            margin: 80px auto;
+
+            padding: 0 6%;
+
+            text-align: center;
+        }
+
+        .quote h2 {
+            font-size: clamp(30px, 5vw, 55px);
+
+            line-height: 1.05;
+
+            letter-spacing: -3px;
+        }
+
+        .quote span {
+            color: #55733d;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            padding: 30px 6%;
+
+            background: #151515;
+
+            color: #888;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            font-size: 9px;
+
+            letter-spacing: 1.5px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width: 900px) {
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .stats {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .impact-grid {
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+        }
+
+        @media(max-width: 600px) {
+
+            .navbar {
+                padding: 0 5%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding-top: 60px;
+            }
+
+            .hero h1 {
+                letter-spacing: -4px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .impact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                flex-direction: column;
+
+                gap: 10px;
+            }
+
+        }
+
+    </style>
 
 </head>
 
+
 <body>
 
-<?php include_once __DIR__ . '/../includes/navbar.php'; ?>
+
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <a
+        href="../index.php"
+        class="logo"
+    >
+        YFF
+    </a>
 
 
-<main class="impact-page">
+    <nav class="nav-links">
+
+        <a href="../index.php">
+            Home
+        </a>
+
+        <a href="../shop/index.php">
+            Shop
+        </a>
+
+        <a href="../ai/stylist.php">
+            AI Stylist
+        </a>
+
+        <a href="../ai/vibe.php">
+            Vibes
+        </a>
+
+        <a href="../marketplace/index.php">
+            Pre-Loved
+        </a>
+
+        <a
+            href="index.php"
+            class="active"
+        >
+            Impact
+        </a>
+
+    </nav>
+
+</header>
 
 
-    <!-- HERO -->
+<!-- ================= HERO ================= -->
 
-    <section class="impact-hero">
+<section class="hero">
 
-        <div class="impact-hero-content">
+    <div class="eyebrow">
+        YFF • SUSTAINABILITY
+    </div>
 
-            <span class="eyebrow">
-                STYLE WITH PURPOSE ❤️
-            </span>
+    <h1>
+        STYLE THAT
+        <span>
+            MATTERS.
+        </span>
+    </h1>
 
-            <h1>
-                Fashion that<br>
-                creates impact.
-            </h1>
+    <p class="hero-text">
 
-            <p>
-                At SSISS, your clothes don't have to end
-                their journey when you're done wearing them.
-                Give them a second life and help someone
-                along the way.
-            </p>
+        Fashion should not end when you stop wearing it.
+        YFF connects conscious shopping, pre-loved fashion,
+        donations and rewards to create a more circular
+        fashion ecosystem.
 
-            <div class="hero-actions">
+    </p>
 
-                <a
-                    href="../donation/donate.php"
-                    class="primary-btn"
-                >
-                    Donate Clothes →
-                </a>
+</section>
 
-                <a
-                    href="stories.php"
-                    class="secondary-btn"
-                >
-                    See Our Stories
-                </a>
 
-            </div>
+<!-- ================= STATS ================= -->
 
+<section class="stats">
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            ♻
         </div>
 
+        <div class="stat-number">
+            12,450+
+        </div>
 
-        <div class="impact-hero-card">
+        <div class="stat-label">
+            Clothes Donated
+        </div>
 
-            <div class="impact-symbol">
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            ♡
+        </div>
+
+        <div class="stat-number">
+            8,560+
+        </div>
+
+        <div class="stat-label">
+            People Helped
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            ◌
+        </div>
+
+        <div class="stat-number">
+            2,340 KG
+        </div>
+
+        <div class="stat-label">
+            CO₂ Reduced
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+            ◎
+        </div>
+
+        <div class="stat-number">
+            56+
+        </div>
+
+        <div class="stat-label">
+            NGO Partners
+        </div>
+
+    </div>
+
+
+</section>
+
+
+<!-- ================= IMPACT ================= -->
+
+<section class="impact-section">
+
+
+    <div class="section-title">
+
+        <small>
+            OUR COMMUNITY
+        </small>
+
+        <h2>
+            Every choice creates impact.
+        </h2>
+
+    </div>
+
+
+    <div class="impact-grid">
+
+
+        <div class="impact-card">
+
+            <div class="impact-icon">
                 ♻️
             </div>
 
             <h3>
-                WEAR.
-                <br>
-                REUSE.
-                <br>
-                IMPACT.
+                Give Fashion
+                A Second Life
             </h3>
 
-        </div>
-
-    </section>
-
-
-    <!-- STATS -->
-
-    <section class="impact-stats">
-
-        <div class="section-heading centered">
-
-            <span class="eyebrow">
-                OUR COLLECTIVE IMPACT
-            </span>
-
-            <h2>
-                Small actions. Big difference.
-            </h2>
-
-        </div>
-
-
-        <div class="stats-grid">
-
-
-            <div class="impact-stat-card">
-
-                <span class="stat-icon">
-                    ♻️
-                </span>
-
-                <strong>
-                    <?= number_format(
-                        $stats['items_reused']
-                    ) ?>
-                </strong>
-
-                <span>
-                    Items Reused
-                </span>
-
-            </div>
-
-
-            <div class="impact-stat-card">
-
-                <span class="stat-icon">
-                    🌱
-                </span>
-
-                <strong>
-                    <?= number_format(
-                        $stats['textiles_saved'],
-                        1
-                    ) ?>
-                    kg
-                </strong>
-
-                <span>
-                    Textiles Diverted
-                </span>
-
-            </div>
-
-
-            <div class="impact-stat-card">
-
-                <span class="stat-icon">
-                    ❤️
-                </span>
-
-                <strong>
-                    <?= number_format(
-                        $stats['people_helped']
-                    ) ?>
-                </strong>
-
-                <span>
-                    People Helped
-                </span>
-
-            </div>
-
-
-            <div class="impact-stat-card">
-
-                <span class="stat-icon">
-                    🤝
-                </span>
-
-                <strong>
-                    <?= number_format(
-                        $stats['donations_completed']
-                    ) ?>
-                </strong>
-
-                <span>
-                    Donations Completed
-                </span>
-
-            </div>
-
-
-        </div>
-
-    </section>
-
-
-    <!-- HOW IT WORKS -->
-
-    <section class="impact-process">
-
-        <div class="section-heading centered">
-
-            <span class="eyebrow">
-                HOW IT WORKS
-            </span>
-
-            <h2>
-                From your closet to someone's life.
-            </h2>
-
-        </div>
-
-
-        <div class="process-grid">
-
-
-            <div class="process-card">
-
-                <span class="process-number">
-                    01
-                </span>
-
-                <div class="process-icon">
-                    👕
-                </div>
-
-                <h3>
-                    You Donate
-                </h3>
-
-                <p>
-                    Choose clothes or accessories you
-                    no longer need.
-                </p>
-
-            </div>
-
-
-            <div class="process-card">
-
-                <span class="process-number">
-                    02
-                </span>
-
-                <div class="process-icon">
-                    🚚
-                </div>
-
-                <h3>
-                    We Collect
-                </h3>
-
-                <p>
-                    Request a pickup or drop your items
-                    at a supported location.
-                </p>
-
-            </div>
-
-
-            <div class="process-card">
-
-                <span class="process-number">
-                    03
-                </span>
-
-                <div class="process-icon">
-                    🤝
-                </div>
-
-                <h3>
-                    NGO Receives
-                </h3>
-
-                <p>
-                    Verified NGO partners receive and
-                    process your donation.
-                </p>
-
-            </div>
-
-
-            <div class="process-card">
-
-                <span class="process-number">
-                    04
-                </span>
-
-                <div class="process-icon">
-                    🪙
-                </div>
-
-                <h3>
-                    You Earn
-                </h3>
-
-                <p>
-                    Eligible donations earn SSISS Coins
-                    after verification.
-                </p>
-
-            </div>
-
-
-        </div>
-
-    </section>
-
-
-    <!-- STORIES -->
-
-    <section class="impact-stories">
-
-        <div class="section-heading">
-
-            <span class="eyebrow">
-                REAL STORIES
-            </span>
-
-            <h2>
-                Where your clothes go.
-            </h2>
-
             <p>
-                Follow the journey beyond your wardrobe.
+                Resell or donate clothes instead of
+                sending them to landfill.
             </p>
 
         </div>
 
 
-        <?php if (!empty($recentStories)): ?>
+        <div class="impact-card">
 
-            <div class="stories-grid">
-
-                <?php foreach ($recentStories as $story): ?>
-
-                    <article class="story-card">
-
-                        <?php if (!empty($story['image'])): ?>
-
-                            <img
-                                src="../<?= htmlspecialchars(
-                                    $story['image']
-                                ) ?>"
-                                alt="<?= htmlspecialchars(
-                                    $story['title']
-                                ) ?>"
-                            >
-
-                        <?php else: ?>
-
-                            <div class="story-placeholder">
-                                ❤️
-                            </div>
-
-                        <?php endif; ?>
-
-
-                        <div class="story-content">
-
-                            <h3>
-                                <?= htmlspecialchars(
-                                    $story['title']
-                                ) ?>
-                            </h3>
-
-                            <p>
-                                <?= htmlspecialchars(
-                                    $story['short_description']
-                                ) ?>
-                            </p>
-
-                            <a
-                                href="stories.php?id=<?= (int)$story['id'] ?>"
-                            >
-                                Read Story →
-                            </a>
-
-                        </div>
-
-                    </article>
-
-                <?php endforeach; ?>
-
+            <div class="impact-icon">
+                🌱
             </div>
 
-        <?php else: ?>
-
-            <div class="empty-impact">
-
-                <div>
-                    🌱
-                </div>
-
-                <h3>
-                    Our impact stories are coming soon.
-                </h3>
-
-                <p>
-                    We're working with our NGO partners to
-                    document the journey of every donation.
-                </p>
-
-            </div>
-
-        <?php endif; ?>
-
-
-        <div class="center-action">
-
-            <a
-                href="stories.php"
-                class="secondary-btn"
-            >
-                View All Stories →
-            </a>
-
-        </div>
-
-    </section>
-
-
-    <!-- CTA -->
-
-    <section class="impact-cta">
-
-        <div>
-
-            <span class="eyebrow">
-                READY TO MAKE A DIFFERENCE?
-            </span>
-
-            <h2>
-                Your closet can do more.
-            </h2>
+            <h3>
+                Reduce
+                Fashion Waste
+            </h3>
 
             <p>
-                Give your unused clothes a second life.
+                Pre-loved fashion extends the life
+                of garments and reduces unnecessary
+                production.
             </p>
 
         </div>
 
-        <a
-            href="../donation/donate.php"
-            class="primary-btn"
-        >
-            Start Donating →
-        </a>
 
-    </section>
+        <div class="impact-card">
+
+            <div class="impact-icon">
+                🤝
+            </div>
+
+            <h3>
+                Support
+                Communities
+            </h3>
+
+            <p>
+                Donations connect unused clothing
+                with people and organizations that
+                need them.
+            </p>
+
+        </div>
 
 
-</main>
+    </div>
 
 
-<?php include_once __DIR__ . '/../includes/footer.php'; ?>
+    <!-- ================= PROGRESS ================= -->
+
+    <div class="progress-section">
+
+        <div class="progress-title">
+
+            <strong>
+                COMMUNITY CIRCULARITY GOAL
+            </strong>
+
+            <span>
+                76%
+            </span>
+
+        </div>
+
+
+        <div class="progress-bar">
+
+            <div class="progress-fill"></div>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+<!-- ================= QUOTE ================= -->
+
+<section class="quote">
+
+    <h2>
+
+        “Look good.
+        <span>
+            Do good.
+        </span>
+        Make fashion last.”
+
+    </h2>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <span>
+        YFF • YOUR FASHION FUTURE
+    </span>
+
+    <span>
+        DEMO / PROTOTYPE
+    </span>
+
+</footer>
+
 
 </body>
+
 </html>

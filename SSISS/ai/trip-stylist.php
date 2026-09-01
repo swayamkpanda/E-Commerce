@@ -4,7 +4,7 @@ session_start();
 
 /*
 |--------------------------------------------------------------------------
-| SSISS AI - TRIP STYLIST
+| YFF AI - TRIP STYLIST
 |--------------------------------------------------------------------------
 | Demo version
 | AI API + MySQL integration will be added later
@@ -213,7 +213,7 @@ $weatherName = [
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Trip Stylist | SSISS AI</title>
+<title>Trip Stylist | YFF AI</title>
 
 </head>
 
@@ -224,7 +224,7 @@ $weatherName = [
 
 <header>
 
-<h1>✈️ SSISS Trip Stylist</h1>
+<h1>✈️ YFF Trip Stylist</h1>
 
 <p>
 
@@ -255,7 +255,7 @@ Plan your travel wardrobe with AI.
 
 <p>
 
-Tell us where you're going and SSISS AI will create
+Tell us where you're going and YFF AI will create
 a complete outfit plan for every day of your trip.
 
 </p>
@@ -741,7 +741,7 @@ Later it will use:
 
 <li>User style profile</li>
 
-<li>MySQL SSISS products</li>
+<li>MySQL YFF products</li>
 
 <li>Budget optimization</li>
 

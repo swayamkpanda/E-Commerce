@@ -4,7 +4,7 @@ session_start();
 
 /*
 |--------------------------------------------------------------------------
-| SSISS AI FASHION STUDIO
+| YFF AI FASHION STUDIO
 |--------------------------------------------------------------------------
 | Main AI features hub
 | Demo version - API & MySQL will be connected later
@@ -29,7 +29,7 @@ $userName = $_SESSION['user_name'] ?? 'Fashion Lover';
     >
 
     <title>
-        AI Fashion Studio | SSISS
+        AI Fashion Studio | YFF
     </title>
 
 </head>
@@ -45,7 +45,7 @@ $userName = $_SESSION['user_name'] ?? 'Fashion Lover';
 <header>
 
     <h1>
-        SSISS AI Fashion Studio
+        YFF AI Fashion Studio
     </h1>
 
     <p>
@@ -416,7 +416,7 @@ $userName = $_SESSION['user_name'] ?? 'Fashion Lover';
 <section>
 
     <h2>
-        How SSISS AI Works
+        How YFF AI Works
     </h2>
 
 
@@ -443,7 +443,7 @@ $userName = $_SESSION['user_name'] ?? 'Fashion Lover';
         </li>
 
         <li>
-            SSISS finds matching products
+            YFF finds matching products
         </li>
 
         <li>
@@ -526,7 +526,7 @@ $userName = $_SESSION['user_name'] ?? 'Fashion Lover';
 <footer>
 
     <p>
-        SSISS AI Fashion Studio
+        YFF AI Fashion Studio
     </p>
 
     <a href="../index.php">

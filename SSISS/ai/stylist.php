@@ -4,7 +4,7 @@ session_start();
 
 /*
 |--------------------------------------------------------------------------
-| SSISS AI - PERSONAL STYLIST
+| YFF AI - PERSONAL STYLIST
 |--------------------------------------------------------------------------
 | Demo version
 | AI API + MySQL integration will be added later
@@ -58,7 +58,7 @@ if ($submitted) {
         'title' => 'Smart Casual Complete Look',
 
         'summary' =>
-            'Based on your requirements, SSISS AI recommends a clean, versatile outfit that balances comfort, style and your budget.',
+            'Based on your requirements, YFF AI recommends a clean, versatile outfit that balances comfort, style and your budget.',
 
         'top' => [
             'name' => 'Premium Oversized Cotton Shirt',
@@ -121,8 +121,12 @@ if ($aiResponse) {
     >
 
     <title>
-        AI Personal Stylist | SSISS
+        AI Personal Stylist | YFF
     </title>
+
+    <link rel="stylesheet" href="../assets/css/ai.css">
+
+    
 
 </head>
 
@@ -137,7 +141,7 @@ if ($aiResponse) {
 <header>
 
     <h1>
-        🤖 SSISS AI Personal Stylist
+        🤖 YFF AI Personal Stylist
     </h1>
 
     <p>
@@ -950,7 +954,7 @@ if ($aiResponse) {
     <p>
 
         <a href="../index.php">
-            ← SSISS Store
+            ← YFF Store
         </a>
 
     </p>

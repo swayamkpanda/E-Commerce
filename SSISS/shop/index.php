@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Shop | SSISS";
+$pageTitle = "Shop | YFF";
 ?>
 
 <!DOCTYPE html>
@@ -58,7 +58,7 @@ $pageTitle = "Shop | SSISS";
     <a href="../index.php"
        class="logo">
 
-        SSI<span>SS</span>
+        YFF
 
     </a>
 
@@ -388,7 +388,7 @@ $pageTitle = "Shop | SSISS";
     <p>
 
         Get style drops, AI fashion insights
-        and SSISS updates.
+        and YFF updates.
 
     </p>
 
@@ -403,7 +403,7 @@ $pageTitle = "Shop | SSISS";
 
         <button type="submit">
 
-            JOIN SSISS
+            JOIN YFF
 
             <i class="fa-solid fa-arrow-right"></i>
 

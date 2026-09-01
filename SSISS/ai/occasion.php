@@ -4,7 +4,7 @@ session_start();
 
 /*
 |--------------------------------------------------------------------------
-| SSISS AI - OCCASION STYLIST
+| YFF AI - OCCASION STYLIST
 |--------------------------------------------------------------------------
 | Demo version
 | AI API + MySQL integration will be added later
@@ -136,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     >
 
     <title>
-        Occasion Stylist | SSISS AI
+        Occasion Stylist | YFF AI
     </title>
 
 </head>
@@ -152,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <header>
 
     <h1>
-        🎉 SSISS Occasion Stylist
+        🎉 YFF Occasion Stylist
     </h1>
 
     <p>
@@ -183,7 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <p>
         Whether it's a wedding, date, party, college,
-        interview or trip, SSISS AI can create a complete look
+        interview or trip, YFF AI can create a complete look
         based on your occasion, budget and personal style.
     </p>
 
@@ -805,7 +805,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     &nbsp;&nbsp;
 
     <a href="../index.php">
-        ← SSISS Store
+        ← YFF Store
     </a>
 
 </footer>

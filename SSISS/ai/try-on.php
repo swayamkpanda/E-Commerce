@@ -4,7 +4,7 @@ session_start();
 
 /*
 |--------------------------------------------------------------------------
-| SSISS AI - VIRTUAL TRY-ON
+| YFF AI - VIRTUAL TRY-ON
 |--------------------------------------------------------------------------
 | Demo version
 | Real AI API and MySQL integration will be added later.
@@ -227,7 +227,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     >
 
     <title>
-        Virtual Try-On | SSISS AI
+        Virtual Try-On | YFF AI
     </title>
 
 </head>
@@ -242,7 +242,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <header>
 
     <h1>
-        🪞 SSISS Virtual Try-On
+        🪞 YFF Virtual Try-On
     </h1>
 
     <p>
@@ -252,7 +252,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </p>
 
     <p>
-        Try SSISS products virtually before buying.
+        Try YFF products virtually before buying.
     </p>
 
 </header>
@@ -272,7 +272,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </h2>
 
     <p>
-        Upload your photo and select a SSISS product.
+        Upload your photo and select a YFF product.
         Our future AI system will generate a virtual
         preview of the selected item on you.
     </p>
@@ -673,7 +673,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <section>
 
     <h2>
-        🧠 How SSISS Virtual Try-On Will Work
+        🧠 How YFF Virtual Try-On Will Work
     </h2>
 
     <ol>
@@ -683,7 +683,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </li>
 
         <li>
-            User selects a SSISS product.
+            User selects a YFF product.
         </li>
 
         <li>
@@ -700,7 +700,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </li>
 
         <li>
-            SSISS displays the generated result.
+            YFF displays the generated result.
         </li>
 
         <li>
@@ -826,7 +826,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <p>
 
         <a href="../index.php">
-            ← SSISS Store
+            ← YFF Store
         </a>
 
     </p>

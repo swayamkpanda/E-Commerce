@@ -4,7 +4,7 @@ session_start();
 
 /*
 |--------------------------------------------------------------------------
-| SSISS AI - RESULT PAGE
+| YFF AI - RESULT PAGE
 |--------------------------------------------------------------------------
 | Demo AI recommendation result.
 | Real AI API + MySQL products will be connected later.
@@ -180,7 +180,7 @@ $colourDisplay =
     >
 
     <title>
-        Your AI Outfit | SSISS
+        Your AI Outfit | YFF
     </title>
 
 </head>
@@ -196,7 +196,7 @@ $colourDisplay =
 <header>
 
     <h1>
-        ✨ Your SSISS AI Look
+        ✨ Your YFF AI Look
     </h1>
 
     <p>
@@ -777,7 +777,7 @@ $colourDisplay =
     <p>
 
         <a href="../index.php">
-            ← Back to SSISS Store
+            ← Back to YFF Store
         </a>
 
     </p>

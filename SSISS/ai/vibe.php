@@ -4,7 +4,7 @@ session_start();
 
 /*
 |--------------------------------------------------------------------------
-| SSISS AI - VIBE STYLIST
+| YFF AI - VIBE STYLIST
 |--------------------------------------------------------------------------
 | Demo version
 | AI API + MySQL product integration will be added later.
@@ -145,7 +145,7 @@ if ($submitted) {
         'title' => 'Your '.$vibes[$vibe]['name'].' Look',
 
         'description' =>
-            'SSISS AI created this look based on your selected vibe, occasion, colour preference and budget.',
+            'YFF AI created this look based on your selected vibe, occasion, colour preference and budget.',
 
         'top' => [
             'name' => 'Premium Relaxed Fit Shirt',
@@ -221,8 +221,13 @@ if ($outfit) {
     >
 
     <title>
-        Vibe Stylist | SSISS AI
+        Vibe Stylist | YFF AI
     </title>
+
+    <link rel="stylesheet" href="../assets/css/vibe.css">
+
+
+    
 
 </head>
 
@@ -237,7 +242,7 @@ if ($outfit) {
 <header>
 
     <h1>
-        ✨ SSISS Vibe Stylist
+        ✨ YFF Vibe Stylist
     </h1>
 
 
@@ -281,7 +286,7 @@ if ($outfit) {
 
         It's about how you want to feel.
 
-        Choose your vibe and let SSISS AI
+        Choose your vibe and let YFF AI
         create your complete look.
 
     </p>
@@ -1190,7 +1195,7 @@ if ($outfit) {
 <section>
 
     <h2>
-        🤖 How Real SSISS AI Will Work
+        🤖 How Real YFF AI Will Work
     </h2>
 
 
@@ -1221,7 +1226,7 @@ if ($outfit) {
         </li>
 
         <li>
-            SSISS displays real products.
+            YFF displays real products.
         </li>
 
         <li>
@@ -1254,7 +1259,7 @@ if ($outfit) {
     <p>
 
         <a href="../index.php">
-            ← SSISS Store
+            ← YFF Store
         </a>
 
     </p>

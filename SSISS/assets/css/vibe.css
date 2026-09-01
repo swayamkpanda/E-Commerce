@@ -1,1 +1,233 @@
-// TODO: Implement this SSISS asset.
+/* =========================================================
+   YFF / SSISS — VIBE STYLIST
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f5f3ee;
+    color: #171717;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.vibe-page {
+    min-height: 100vh;
+    padding: 70px 6%;
+}
+
+.vibe-container {
+    max-width: 1250px;
+    margin: auto;
+}
+
+.vibe-label {
+    color: #777;
+    font-size: 10px;
+    letter-spacing: 4px;
+}
+
+.vibe-title {
+    margin: 15px 0 20px;
+    font-size: clamp(50px, 8vw, 105px);
+    line-height: .85;
+    letter-spacing: -7px;
+}
+
+.vibe-subtitle {
+    max-width: 580px;
+    color: #777;
+    line-height: 1.7;
+}
+
+/* VIBE CARDS */
+
+.vibe-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 50px;
+}
+
+.vibe-card {
+    min-height: 240px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    background: #171717;
+    color: white;
+
+    cursor: pointer;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.vibe-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 20px 35px rgba(0,0,0,.15);
+}
+
+.vibe-card.active {
+    outline: 3px solid #cce8a5;
+}
+
+.vibe-card h2 {
+    margin: 0;
+    font-size: 29px;
+    letter-spacing: -1px;
+}
+
+.vibe-card p {
+    margin: 8px 0 0;
+    color: #aaa;
+    font-size: 11px;
+}
+
+.vibe-number {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #aaa;
+    font-size: 10px;
+}
+
+.streetwear {
+    background: linear-gradient(135deg,#111,#414141);
+}
+
+.old-money {
+    background: linear-gradient(135deg,#24382a,#111);
+}
+
+.y2k {
+    background: linear-gradient(135deg,#33275b,#111);
+}
+
+.minimal {
+    background: linear-gradient(135deg,#d9d8d3,#777);
+    color: #111;
+}
+
+.minimal p {
+    color: #444;
+}
+
+.grunge {
+    background: linear-gradient(135deg,#333,#090909);
+}
+
+.formal {
+    background: linear-gradient(135deg,#263740,#090909);
+}
+
+/* FORM */
+
+.vibe-form {
+    margin-top: 40px;
+    padding: 30px;
+    max-width: 900px;
+    background: white;
+    border: 1px solid #ddd9d0;
+}
+
+.vibe-form h2 {
+    margin-top: 0;
+}
+
+.vibe-form select,
+.vibe-form input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 20px;
+
+    border: 1px solid #d2cfc7;
+    background: #faf9f5;
+}
+
+.vibe-form button,
+.vibe-generate {
+    width: 100%;
+    padding: 17px;
+
+    border: none;
+
+    background: #171717;
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 2px;
+
+    transition: .3s;
+}
+
+.vibe-form button:hover,
+.vibe-generate:hover {
+    background: #d9edbd;
+    color: #171717;
+    transform: translateY(-2px);
+}
+
+/* RESULT */
+
+.vibe-result {
+    margin-top: 40px;
+    padding: 35px;
+    background: #171717;
+    color: white;
+}
+
+.vibe-result h2 {
+    color: #d9edbd;
+}
+
+.vibe-result p {
+    color: #aaa;
+    line-height: 1.7;
+}
+
+.vibe-result-card {
+    margin-top: 20px;
+    padding: 25px;
+    background: #242424;
+    border: 1px solid #3b3b3b;
+}
+
+.vibe-result-card strong {
+    color: #d9edbd;
+}
+
+@media(max-width:850px) {
+
+    .vibe-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:600px) {
+
+    .vibe-page {
+        padding: 45px 5%;
+    }
+
+    .vibe-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .vibe-title {
+        letter-spacing: -4px;
+    }
+
+}
